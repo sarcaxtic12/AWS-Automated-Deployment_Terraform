@@ -71,3 +71,15 @@ resource "aws_ec2_transit_gateway" "tgw" {
     Name = "main-tgw"
   }
 }
+
+resource "aws_instance" "ubuntu_for_vyos" {
+  ami           = "ami-0cb91c7de36eed2cb"
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.public.id
+  key_name      = "my-aws-key"
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "VyOS-router"
+  }
+}
