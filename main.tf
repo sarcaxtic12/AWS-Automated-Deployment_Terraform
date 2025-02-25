@@ -1,6 +1,6 @@
 # Configure AWS Provider
 provider "aws" {
-  region = "us-east-2"
+  region  = "us-east-2"
   profile = "default"
 }
 
@@ -19,7 +19,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "us-east-2a"
+  availability_zone       = "us-east-2b"
   tags = {
     Name = "public-subnet"
   }
@@ -64,20 +64,49 @@ resource "aws_route" "internet_access" {
   gateway_id             = aws_internet_gateway.igw.id
 }
 
-# Create Transit Gateway (For Future BGP Peering)
-resource "aws_ec2_transit_gateway" "tgw" {
-  description = "AWS Transit Gateway"
+# Create Security Group for VyOS
+resource "aws_security_group" "vyos_sg" {
+  name        = "vyos-security-group"
+  description = "Allow SSH and required VyOS services"
+  vpc_id      = aws_vpc.main.id
+
+  # Allow SSH (Port 22)
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow WebUI (If Needed)
+  ingress {
+    from_port   = 8443
+    to_port     = 8443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow All Outbound Traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
-    Name = "main-tgw"
+    Name = "vyos-sg"
   }
 }
 
-resource "aws_instance" "ubuntu_for_vyos" {
-  ami           = "ami-0cb91c7de36eed2cb"
-  instance_type = "t3.micro"
+# Create VyOS Instance
+resource "aws_instance" "vyos" {
+  ami           = "ami-077dd7d9c71a48c89"
+  instance_type = "t3.small"
   subnet_id     = aws_subnet.public.id
   key_name      = "my-aws-key"
   associate_public_ip_address = true
+  vpc_security_group_ids = [aws_security_group.vyos_sg.id]
 
   tags = {
     Name = "VyOS-router"
