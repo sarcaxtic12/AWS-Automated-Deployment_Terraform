@@ -112,3 +112,54 @@ resource "aws_instance" "vyos" {
     Name = "VyOS-router"
   }
 }
+
+# Fetch the Latest Amazon Linux 2 AMI
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+# Create Amazon Linux Instance in the Private Subnet
+resource "aws_instance" "private_test_instance" {
+  ami           = data.aws_ami.amazon_linux.id  # Automatically fetch latest Amazon Linux 2 AMI
+  instance_type = "t3.small"  # Keeping it small unless performance issues arise
+  subnet_id     = aws_subnet.private.id
+  key_name      = "my-aws-key"
+
+  # Security group allowing SSH only from VyOS
+  vpc_security_group_ids = [aws_security_group.private_sg.id]
+
+  tags = {
+    Name = "Private-Test-Instance"
+  }
+}
+
+# Create Security Group for Private Instance
+resource "aws_security_group" "private_sg" {
+  name        = "private-instance-sg"
+  description = "Allow SSH only from VyOS"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.2.1/32"]  # Allow SSH only from VyOS
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "private-sg"
+  }
+}
