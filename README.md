@@ -60,7 +60,7 @@ This phase introduces automation and a lightweight DevOps approach to our VyOS-b
 - **Documentation & Testing**  
   Maintain clear docs on Ansible roles and pipeline steps.  
   Use small integration tests to ensure changes behave as expected.
-#### *Will be updated with detailed insight of the phase once completed. Due to varying factors of implementation, I work off of a general focus and work through things as I go as I am still fairly new to these concepts.
+> *Will be updated with detailed insight of the phase once completed. Due to varying factors of implementation, I work off of a general focus and refine as I go, as I am still fairly new to these concepts.*
   
 ---
 
@@ -80,3 +80,8 @@ Once basic automation is stable, we can explore more advanced DevOps and contain
 - **Logging & Monitoring**  
   Integrate AWS CloudWatch or a third-party solution to monitor traffic and system logs.  
   Create alerts for route failures, high latency, or other anomalies.
+
+### Author  
+**Hyder Shahzaib Ahmed** – *Network & Cloud Automation Enthusiast*  
+
+> This repository demonstrates a comprehensive approach to **cloud networking, infrastructure as code, and DevOps** best practices. It serves as a learning platform and a showcase of my ongoing journey in building robust, automated, and cloud-connected solutions.
