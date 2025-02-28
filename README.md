@@ -10,11 +10,6 @@ This project automates AWS network provisioning using Terraform & Ansible, enabl
 - BGP-based network routing using VyOS  
 - Scalable network automation for cloud-to-on-prem connectivity  
 
-## Future Plans (Phases 4-6)  
-- Phase 4: CI/CD pipeline for network automation (GitHub Actions)  
-- Phase 5: Multi-region networking simulation (Enterprise Office Environment)  
-- Phase 6: AWS CloudWatch monitoring for network traffic & BGP health  
-
 ---
 
 ## Project Breakdown (Phases 1-3)  
@@ -51,23 +46,37 @@ Despite some intermittent connectivity issues during testing, the core component
 
 ---
 
-### Phase 3: Network Automation with Ansible **(In Works)**  
-Automating VyOS configurations with Ansible Playbooks:  
-- BGP route automation  
-- Firewall & VLAN management  
-- Scalable deployments for future integrations  
-
+### Phase 3: Ansible Automation & Basic CI/CD **(IN WORKS)**
+This phase introduces automation and a lightweight DevOps approach to our VyOS-based environment:
+- **Ansible for VyOS Configuration**  
+  Write playbooks to automate routing, firewall rules, VLANs, and more.  
+  Use Python or JavaScript if needed for custom logic or extended tasks.
+- **Basic CI/CD Pipeline**  
+  Integrate Terraform & Ansible checks into a simple pipeline (GitHub Actions, Jenkins, or GitLab CI).  
+  Validate changes (terraform plan, ansible --check) before applying to production.
+- **BGP Route Automation**  
+  Automate BGP peering in VyOS to explore dynamic routing.  
+  Keep it small and test in a controlled dev environment.
+- **Documentation & Testing**  
+  Maintain clear docs on Ansible roles and pipeline steps.  
+  Use small integration tests to ensure changes behave as expected.
+#### *Will be updated with detailed insight of the phase once completed. Due to varying factors of implementation, I work off of a general focus and work through things as I go as I am still fairly new to these concepts.
+  
 ---
 
-## Future Roadmap (Phases 4-6)  
-### Phase 4: CI/CD for Network Automation  
-- Implement GitHub Actions for automated Terraform & Ansible deployments  
-- Enable Infrastructure as Code (IaC) pipeline for seamless updates  
-
-### Phase 5: Multi-Site Office Simulation  
-- Deploy multiple VyOS routers across AWS regions  
-- Simulate a corporate office network with multiple branch sites  
-
-### Phase 6: AWS Cloud Monitoring & Logging  
-- Enable AWS CloudWatch for BGP traffic monitoring  
-- Set up alerts for route failures, latency spikes, and security issues
+## Future Plans
+### Phase 4: Advanced DevOps & Containerization 
+Once basic automation is stable, we can explore more advanced DevOps and container tasks:
+- **Extended CI/CD**  
+  Expand pipelines to include integration tests, remote Terraform state, multiple workspaces, and advanced gating.
+- **Containerization (Docker) & Optional Kubernetes**  
+  Containerize automation tasks or build microservices.  
+  Deploy a small Kubernetes cluster if needed, but only if you want deeper container orchestration.
+- **REST API Integrations**  
+  If VyOS or other services provide REST APIs, automate them using Python/Go/Java microservices.
+- **Advanced Networking**  
+  Explore multi-region or multi-VPC scenarios.  
+  Configure more sophisticated BGP or dynamic routing.
+- **Logging & Monitoring**  
+  Integrate AWS CloudWatch or a third-party solution to monitor traffic and system logs.  
+  Create alerts for route failures, high latency, or other anomalies.
