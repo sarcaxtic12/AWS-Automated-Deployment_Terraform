@@ -1,0 +1,16 @@
+---
+- name: Manage VyOS NAT
+  hosts: vyos
+  gather_facts: no
+  collections:
+    - vyos.vyos
+  tasks:
+    - name: Show current NAT source rules
+      vyos_command:
+        commands:
+          - "show nat source rules"
+      register: nat_output
+
+    - name: Debug NAT rules
+      debug:
+        var: nat_output.stdout_lines
