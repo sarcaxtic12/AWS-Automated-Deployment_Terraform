@@ -127,7 +127,7 @@ data "aws_ami" "amazon_linux" {
 # Create Amazon Linux Instance in the Private Subnet
 resource "aws_instance" "private_test_instance" {
   ami           = data.aws_ami.amazon_linux.id  # Automatically fetch latest Amazon Linux 2 AMI
-  instance_type = "t3.small"  # Keeping it small unless performance issues arise
+  instance_type = "t3.micro"  # Keeping it micro unless performance issues arise
   subnet_id     = aws_subnet.private.id
   key_name      = "my-aws-key"
 
