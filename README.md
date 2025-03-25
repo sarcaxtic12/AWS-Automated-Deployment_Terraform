@@ -15,12 +15,12 @@ This project automates AWS network provisioning using Terraform & Ansible, enabl
 ## Project Breakdown (Phases 1-3)  
 
 ### Phase 1: AWS Network Infrastructure Deployment ✅
-Automated AWS networking using Terraform, provisioning:  
-- VPC for isolated cloud networking  
-- Public & Private Subnets for traffic segmentation  
-- Internet Gateway (IGW) for external access  
-- Route Tables to control network flow  
-- Transit Gateway (TGW) for future multi-VPC connectivity
+- Automated AWS networking using Terraform, provisioning:  
+  - VPC for isolated cloud networking  
+  - Public & Private Subnets for traffic segmentation  
+  - Internet Gateway (IGW) for external access  
+  - Route Tables to control network flow  
+  - Transit Gateway (TGW) for future multi-VPC connectivity
 
 ---
 
@@ -46,40 +46,27 @@ Despite some intermittent connectivity issues during testing, the core component
 
 ---
 
-### Phase 3: Ansible Automation & Basic CI/CD **(IN WORKS)**
-This phase introduces automation and a lightweight DevOps approach to our VyOS-based environment:
-- **Ansible for VyOS Configuration**  
-  Write playbooks to automate routing, firewall rules, VLANs, and more.  
-  Use Python or JavaScript if needed for custom logic or extended tasks.
-- **Basic CI/CD Pipeline**  
-  Integrate Terraform & Ansible checks into a simple pipeline (GitHub Actions, Jenkins, or GitLab CI).  
-  Validate changes (terraform plan, ansible --check) before applying to production.
-- **BGP Route Automation**  
-  Automate BGP peering in VyOS to explore dynamic routing.  
-  Keep it small and test in a controlled dev environment.
-- **Documentation & Testing**  
-  Maintain clear docs on Ansible roles and pipeline steps.  
-  Use small integration tests to ensure changes behave as expected.
-> *Will be updated with detailed insight of the phase once completed. Due to varying factors of implementation, I work off of a general focus and refine as I go, as I am still fairly new to these concepts.*
+### Phase 3: Ansible Automation & Basic CI/CD ✅
+- **Ansible for VyOS Configuration:**
+  - Developed Ansible playbooks to automate VyOS configurations (routing, NAT, firewall rules).
+  - Successfully validated and executed these playbooks in check mode, ensuring that network changes are repeatable and version-controlled.
+- **Basic CI/CD Foundations:**  
+  - Established a basic CI/CD framework to run Terraform plans and Ansible dry runs before production deployment.
   
 ---
 
 ## Future Plans
-### Phase 4: Advanced DevOps & Containerization 
-Once basic automation is stable, we can explore more advanced DevOps and container tasks:
-- **Extended CI/CD**  
-  Expand pipelines to include integration tests, remote Terraform state, multiple workspaces, and advanced gating.
-- **Containerization (Docker) & Optional Kubernetes**  
-  Containerize automation tasks or build microservices.  
-  Deploy a small Kubernetes cluster if needed, but only if you want deeper container orchestration.
-- **REST API Integrations**  
-  If VyOS or other services provide REST APIs, automate them using Python/Go/Java microservices.
-- **Advanced Networking**  
-  Explore multi-region or multi-VPC scenarios.  
-  Configure more sophisticated BGP or dynamic routing.
-- **Logging & Monitoring**  
-  Integrate AWS CloudWatch or a third-party solution to monitor traffic and system logs.  
-  Create alerts for route failures, high latency, or other anomalies.
+### Phase 4: Advanced DevOps & Containerization (Future)
+- **Extended CI/CD Pipelines:**  
+  - Expand pipelines to include integration tests, remote Terraform state management, multiple workspaces, and advanced gating.
+- **Containerization (Docker) & Optional Kubernetes:**  
+  - Containerize automation tasks or build microservices; optionally deploy a small Kubernetes cluster for deeper orchestration.
+- **REST API Integrations:**  
+  - Automate network configurations using REST APIs with Python/Go/Java microservices.
+- **Advanced Networking:**  
+  - Explore multi-region or multi-VPC scenarios and implement more sophisticated dynamic routing.
+- **Logging & Monitoring:**  
+  - Integrate AWS CloudWatch or third-party solutions to monitor network traffic and system logs, and set up alerts for route failures, high latency, or other anomalies.
 
 ### Author  
 **Hyder Shahzaib Ahmed** – *Network & Cloud Automation Enthusiast*  
